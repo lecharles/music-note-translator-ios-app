@@ -9,6 +9,7 @@ class CaptureViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var isAnalyzing = false
     @Published var analysisResults: String = ""
+    @Published var omrResult: OMRResult?
     
     func loadSelectedImage() {
         Task {
@@ -68,7 +69,10 @@ class CaptureViewModel: ObservableObject {
                 
                 isAnalyzing = false
                 
-                // Display results
+                // Store result for navigation to preview
+                omrResult = result
+                
+                // Display results summary
                 var resultText = "Analysis complete! Found \(result.detectedNotes.count) notes in \(String(format: "%.2f", result.processingTime)) seconds\n\n"
                 for (index, note) in result.detectedNotes.enumerated() {
                     resultText += "\(index + 1). \(note.pitch.letter.rawValue)\(note.pitch.octave) at (\(Int(note.center.x)), \(Int(note.center.y)))\n"

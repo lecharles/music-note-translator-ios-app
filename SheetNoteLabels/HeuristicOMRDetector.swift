@@ -165,9 +165,13 @@ class HeuristicOMRDetector: OMRDetector {
             }
         }
         
+        print("🎵 Vision detected \(detectedNotes.count) notes from contours")
+        
         // For demo purposes, also add some mock notes if no real ones detected
         if detectedNotes.isEmpty {
+            print("🎵 Creating mock notes for demo")
             detectedNotes = createMockNotes(for: staffs[0])
+            print("🎵 Created \(detectedNotes.count) mock notes")
         }
         
         return detectedNotes
@@ -208,22 +212,24 @@ class HeuristicOMRDetector: OMRDetector {
     }
     
     private func createMockNotes(for staff: StaffInfo) -> [DetectedNote] {
-        // Create some demo notes for testing
+        print("🎵 Creating mock notes - staff: topY=\(staff.topY), spacing=\(staff.spacing)")
+        
+        // Create some demo notes for testing - positioned more realistically
         let notePositions: [(CGFloat, CGFloat)] = [
-            (100, staff.topY + staff.spacing * 0), // F
-            (150, staff.topY + staff.spacing * 1), // E
-            (200, staff.topY + staff.spacing * 2), // D
-            (250, staff.topY + staff.spacing * 3), // C
-            (300, staff.topY + staff.spacing * 4)  // B
+            (80, staff.topY + staff.spacing * 0.0),  // Top line (F5)
+            (140, staff.topY + staff.spacing * 0.5), // First space (E5) 
+            (200, staff.topY + staff.spacing * 1.0), // Second line (D5)
+            (260, staff.topY + staff.spacing * 2.0), // Third line (B4)
+            (320, staff.topY + staff.spacing * 3.0)  // Fourth line (G4)
         ]
         
         return notePositions.enumerated().map { index, position in
             let center = CGPoint(x: position.0, y: position.1)
             let bbox = CGRect(
-                x: center.x - 8,
-                y: center.y - 6,
-                width: 16,
-                height: 12
+                x: center.x - 10,
+                y: center.y - 8,
+                width: 20,
+                height: 16
             )
             let pitch = PitchMapper.mapYCoordinateToPitch(center.y, in: staff)
             
