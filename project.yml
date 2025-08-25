@@ -1,0 +1,36 @@
+name: SheetNoteLabels
+options:
+  bundleIdPrefix: com.yourcompany
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+targets:
+  SheetNoteLabels:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    info:
+      path: SheetNoteLabels/Info.plist
+      properties:
+        CFBundleName: SheetNoteLabels
+        CFBundleDisplayName: Sheet Note Labels
+        CFBundleIdentifier: com.yourcompany.SheetNoteLabels
+        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.0"
+        UILaunchScreen: {}
+        NSCameraUsageDescription: "This app needs camera access to capture photos of sheet music for note labeling."
+        NSPhotoLibraryAddUsageDescription: "This app needs photo library access to save labeled sheet music images."
+        NSPhotoLibraryUsageDescription: "This app needs photo library access to select sheet music images for labeling."
+    sources:
+      - SheetNoteLabels
+    resources:
+      - Resources
+  SheetNoteLabelsTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+    sources:
+      - SheetNoteLabelsTests
+    dependencies:
+      - target: SheetNoteLabels

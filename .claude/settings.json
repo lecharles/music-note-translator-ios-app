@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "deny": ["Read(./.env)", "Read(./secrets/**)"],
+    "ask": ["Bash(brew*)", "Bash(gh*)", "Bash(open*)", "Bash(git*)"],
+    "allow": ["Write(./**/*)", "Bash(ls*)"]
+  }
+}
